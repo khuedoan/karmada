@@ -75,15 +75,16 @@ certs:
     ## @param certs.auto.expiry expiry of the certificate
     expiry: 43800h
     ## @param certs.auto.hosts hosts of the certificate
-    hosts: [
-      "kubernetes.default.svc",
-      "*.etcd.{{ .Release.Namespace }}.svc.{{ .Values.clusterDomain }}",
-      "*.{{ .Release.Namespace }}.svc.{{ .Values.clusterDomain }}",
-      "*.{{ .Release.Namespace }}.svc",
-      "localhost",
-      "127.0.0.1"
-    ]
+    hosts:
+      - "kubernetes.default.svc"
+      - "*.etcd.{{ .Release.Namespace }}.svc.{{ .Values.clusterDomain }}"
+      - "*.{{ .Release.Namespace }}.svc.{{ .Values.clusterDomain }}"
+      - "*.{{ .Release.Namespace }}.svc"
+      - "localhost"
+      - "127.0.0.1"
   custom:
+    ## @param certs.custom.existingSecret use an existing secret to store certificates
+    useExistingSecret: false
     ## @param certs.custom.caCrt ca of the certificate
     caCrt: |
       -----BEGIN CERTIFICATE-----
@@ -566,6 +567,8 @@ agent:
   clusterEndpoint: ""
   ## kubeconfig of the karmada
   kubeconfig:
+    ## @param agent.kubeconfig.existingSecret use an existing secret for the kubeconfig
+    useExistingSecret: false
     ## @param agent.kubeconfig.caCrt ca of the certificate
     caCrt: |
       -----BEGIN CERTIFICATE-----

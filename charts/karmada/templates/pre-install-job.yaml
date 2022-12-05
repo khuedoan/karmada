@@ -32,18 +32,6 @@ data:
         {{ print "{{ front_proxy_crt }}" }}
       front-proxy-client.key: |-
         {{ print "{{ front_proxy_key }}" }}
-  webhook-cert.yaml: |-
-    apiVersion: v1
-    kind: Secret
-    metadata:
-      name: {{ $name }}-webhook-cert
-      namespace: {{ $namespace }}
-    type: kubernetes.io/tls
-    data:
-      tls.crt: |-
-        {{ print "{{ crt }}" }}
-      tls.key: |-
-        {{ print "{{ key }}" }}
   kubeconfig.yaml: |-
     apiVersion: v1
     kind: Secret

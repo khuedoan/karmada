@@ -30,6 +30,7 @@ subjects:
     name: {{ $name }}
     namespace: {{ include "karmada.namespace" . }}
 ---
+{{- if not .Values.agent.kubeconfig.useExistingSecret }}
 apiVersion: v1
 kind: Secret
 metadata:
@@ -56,8 +57,8 @@ stringData:
           user: {{ $name }}-apiserver
         name: {{ $name }}-apiserver
     current-context: {{ $name }}-apiserver
+{{- end }}
 ---
-
 apiVersion: apps/v1
 kind: Deployment
 metadata:
